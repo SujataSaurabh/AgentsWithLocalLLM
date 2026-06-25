@@ -7,10 +7,11 @@
 
 ```arm-64```
 
-2. download and execute the Official metal installer 
+2. download and execute the Official metal installer
+   
 ```> curl -fsSL https://raw.githubusercontent.com/vllm-project/vllm-metal/main/install.sh | bash```
 
-3. Activate the environment
+4. Activate the environment
 
 ```> source ~/.venv-vllm-metal/bin/activate```
 
@@ -20,10 +21,12 @@
 
 ```Output should be: MLX default hardware device: Device(gpu, 0)```
 
-5. Check where is the model saved with its size 
+5. Check where is the model saved with its size
+   
 ```> du -sh ~/.cache/huggingface/hub/*```
 
-6. Run the model 
+7. Run the model
+   
 ```> vllm serve Qwen/Qwen2.5-7B-Instruct --port 8000```
 
 Here ```--enable-auto-tool-choice ``` tells your local vLLM instance that it is allowed to accept incoming requests using OpenAI's structured "tool_choice": "auto" format.
@@ -42,6 +45,7 @@ Here ```--enable-auto-tool-choice ``` tells your local vLLM instance that it is 
 ```> pip install google-adk```
 
 2. Scaffold a clean agent project
+   
 ```> adk create weather_agent```
 
 ```> cd weather_agent```
