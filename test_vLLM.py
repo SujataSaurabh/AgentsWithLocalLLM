@@ -7,7 +7,7 @@ client = OpenAI(
 )
 
 completion = client.chat.completions.create(
-    # CHANGE THIS: Match the exact string you passed to 'vllm serve'
+    # Match the exact string you passed to 'vllm serve'
     model="Qwen/Qwen2.5-7B-Instruct", 
     messages=[
         {"role": "system", "content": "You are a senior systems engineer."},
