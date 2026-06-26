@@ -115,3 +115,4 @@ Set the Connection URL box to point to your bare-metal port: ```http://localhost
 
 Finally, navigate to **Dashboards -> New -> Import**, type the official vLLM layout signature ID ```25263```, click Load, select your Prometheus pipeline from the option picker, and select Import.
 
+<img src="observability.png" alt="App Screenshot" width="500">
