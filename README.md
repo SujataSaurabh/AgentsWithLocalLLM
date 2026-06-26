@@ -63,5 +63,55 @@ This creates a standardized project structure including a critical configuration
 
 Open  browser and navigate to ```http://localhost:8080```. This loads the visual testing playground where you can select your agent, track execution logic, and view real-time token performance metadata.
 
+# Set up observability locally without docker 
 
+ 1. Install Prometheus and Grafana binaries
+
+``` > brew update```
+
+``` > brew install prometheus grafana```
+
+2. Configure the Native Prometheus Engine
+
+```> nano /opt/homebrew/etc/prometheus.yml ```
+
+In prometheus.yml - 
+```
+global:
+  scrape_interval: 5s # Check vLLM stats every 5 seconds
+
+scrape_configs:
+  - job_name: 'vllm-local-inference'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['localhost:8000'] # Points straight to your local vLLM port
+```
+
+3. Launch infrastructure services - start prometheus and grafana 
+
+``` > brew services start prometheus```
+
+``` > brew services start grafana ```
+
+4. Run vLLM and verify data pipelines 
+
+``` > source ~/.venv-vllm-metal/bin/activate```
+
+``` > vllm serve Qwen/Qwen2.5-7B-Instruct --port 8000 ```
+
+Confirm prometheus is running by navigating to ```http://localhost:9090```. 
+
+In Status -> Targets, ```vllm-local-inference``` job listed with a green status badge labeled UP.
+
+5. Map the live dashboard in Grafana 
+
+Open local Grafana client web server: 
+```http://localhost:3000``` and use default admin credentials: user - ```admin``` and password - ```admin```. 
+
+Go to **Connections-> Data Sources -> Add data source**, and select Prometheus. 
+
+
+Set the Connection URL box to point to your bare-metal port: ```http://localhost:9090``` and click Save & Test.
+
+Finally, navigate to **Dashboards -> New -> Import**, type the official vLLM layout signature ID ```25263```, click Load, select your Prometheus pipeline from the option picker, and select Import.
 

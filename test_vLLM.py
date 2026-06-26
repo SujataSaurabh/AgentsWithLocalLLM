@@ -1,4 +1,4 @@
- from openai import OpenAI
+from openai import OpenAI
 
 client = OpenAI(
     base_url="http://localhost:8000/v1",
@@ -11,7 +11,7 @@ completion = client.chat.completions.create(
     model="Qwen/Qwen2.5-7B-Instruct", 
     messages=[
         {"role": "system", "content": "You are a senior systems engineer."},
-        {"role": "user", "content": "Give me a high-level strategy for multi-tenant data isolation in an LLM pipeline."}
+        {"role": "user", "content": "What is CAP theoram?."}
     ]
 )
 
