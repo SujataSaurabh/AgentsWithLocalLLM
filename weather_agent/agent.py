@@ -3,10 +3,9 @@ from google.adk.agents import Agent
 from google.adk.models.lite_llm import LiteLlm
 import requests
 
+# faking api key even though it is not needed since the model is local 
 os.environ["OPENAI_API_KEY"] = "mock-local-key"
-# 1. Define your custom tool function with clear type hints and docstrings
-import requests
-
+#  
 def get_current_weather(location: str) -> str:
     """Gets the current weather conditions for a specified city or location.
 
@@ -48,7 +47,7 @@ def get_current_weather(location: str) -> str:
         humidity = current.get("relative_humidity_2m")
         precip = current.get("precipitation")
         
-        # Format a descriptive string response for the LLM agent to parse
+        # A descriptive string response for the LLM agent to parse
         weather_report = (
             f"Current weather conditions for {resolved_name}: "
             f"The temperature is {temp}°F (Feels like {feels_like}°F). "
@@ -61,7 +60,7 @@ def get_current_weather(location: str) -> str:
     except Exception as e:
         return f"An unexpected error occurred inside the weather tool: {str(e)}"
 
-# 2. Configure your LiteLLM local client instance
+# 2. Configure  LiteLLM local client instance
 cloud_open_model = LiteLlm(
     model="openai/Qwen/Qwen2.5-7B-Instruct", 
     api_base="http://localhost:8000/v1", 
@@ -69,7 +68,7 @@ cloud_open_model = LiteLlm(
     custom_llm_provider="openai"
 )
 
-# 3. Add the function to the tools list parameter
+# 3. Adding function to the tools list parameter
 root_agent = Agent(
     model=cloud_open_model,
     name="CloudOpenAssistant",
